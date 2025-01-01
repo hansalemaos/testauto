@@ -2667,7 +2667,7 @@ ADB_SHELL_STOP_USER = f"{sconfig.mycfg_system_folder}am stop-user %s"
 ADB_SET_DENSITY = f"{sconfig.mycfg_system_folder}wm density %s"
 ADB_AM_START_PACKAGE = f'''{sconfig.mycfg_system_folder}start "$({sconfig.mycfg_system_folder}cmd package resolve-activity --brief "%s" | tail -n 1)"'''
 
-ADB_AM_START_PACKAGE_WITH_RIGHTS_NO_ANIMATION = f"""{sconfig.mycfg_system_folder}start "$({sconfig.mycfg_system_folder}cmd package resolve-activity --brief "%s" | tail -n 1)" --grant-read-uri-permission --grant-persistable-uri-permission --grant-prefix-uri-permission --grant-write-uri-permission --activity-no-animation"""
+ADB_AM_START_PACKAGE_WITH_RIGHTS_NO_ANIMATION = f"""{sconfig.mycfg_system_folder}start --grant-read-uri-permission --grant-persistable-uri-permission --grant-prefix-uri-permission --grant-write-uri-permission --activity-no-animation"""
 
 
 class ExecuteShellCmds:
