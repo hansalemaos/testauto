@@ -6198,7 +6198,7 @@ def get_fragment_data(android_fragment_parser_exe, timeout=30):
             & (dff.aa_MY_PARENT_IDS.str.len() > 0),
             "aa_is_child",
         ] = True
-
+        return dff
     except Exception:
         errwrite()
         return pd.DataFrame()
