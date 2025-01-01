@@ -2669,6 +2669,14 @@ ADB_AM_START_PACKAGE = f'''{sconfig.mycfg_system_folder}start "$({sconfig.mycfg_
 
 ADB_AM_START_PACKAGE_WITH_RIGHTS_NO_ANIMATION = f"""{sconfig.mycfg_system_folder}start --grant-read-uri-permission --grant-persistable-uri-permission --grant-prefix-uri-permission --grant-write-uri-permission --activity-no-animation"""
 
+ADB_SHELL_ACTIVATE_ACCESSIBILITY_SERVICE = f"""
+qx="$({sconfig.mycfg_system_folder}settings get secure enabled_accessibility_services)"
+rr=%s
+if [ "$qx" != "$rr" ]; then
+    /system/bin/settings put secure enabled_accessibility_services %s
+fi
+"""
+
 
 class ExecuteShellCmds:
     def __init__(self, print_cmds=True):
@@ -2679,6 +2687,12 @@ class ExecuteShellCmds:
             "cwd": os.getcwd(),
         }
         self.print_cmds = print_cmds
+
+    def sh_activate_accessibility_service(self, service, service_activity, **kwargs):
+        return self.execute_sh_command(
+            ADB_SHELL_ACTIVATE_ACCESSIBILITY_SERVICE % (service, service_activity),
+            **kwargs,
+        )
 
     def sh_am_start_package_with_rights_no_animation(self, package, **kwargs):
         return self.execute_sh_command(
