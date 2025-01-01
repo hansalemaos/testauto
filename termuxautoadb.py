@@ -2667,6 +2667,8 @@ ADB_SHELL_STOP_USER = f"{sconfig.mycfg_system_folder}am stop-user %s"
 ADB_SET_DENSITY = f"{sconfig.mycfg_system_folder}wm density %s"
 ADB_AM_START_PACKAGE = f'''{sconfig.mycfg_system_folder}start "$({sconfig.mycfg_system_folder}cmd package resolve-activity --brief "%s" | tail -n 1)"'''
 
+ADB_AM_START_PACKAGE_WITH_RIGHTS_NO_ANIMATION = f"""{sconfig.mycfg_system_folder}start "$({sconfig.mycfg_system_folder}cmd package resolve-activity --brief "%s" | tail -n 1)" --grant-read-uri-permission --grant-persistable-uri-permission --grant-prefix-uri-permission --grant-write-uri-permission --activity-no-animation"""
+
 
 class ExecuteShellCmds:
     def __init__(self, print_cmds=True):
@@ -2677,6 +2679,12 @@ class ExecuteShellCmds:
             "cwd": os.getcwd(),
         }
         self.print_cmds = print_cmds
+
+    def sh_am_start_package_with_rights_no_animation(self, package, **kwargs):
+        return self.execute_sh_command(
+            ADB_AM_START_PACKAGE_WITH_RIGHTS_NO_ANIMATION % package,
+            **kwargs,
+        )
 
     def sh_am_start_package(self, package, **kwargs):
         return self.execute_sh_command(ADB_AM_START_PACKAGE % package, **kwargs)
