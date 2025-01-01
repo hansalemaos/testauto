@@ -5759,7 +5759,7 @@ chcon {self.selinux_context} '{sourcef}'"""
 
     def __call__(self):
         return subprocess.run(
-            "sh", input=str(self).encode(), shell=True, env=os.environ
+            sconfig.mycfg_shell, input=str(self).encode(), shell=True, env=os.environ
         )
 
 
@@ -6314,8 +6314,14 @@ class LcpParser:
                 " ".join(["kill", "-9", str(self.p.pid)]), shell=True, env=os.environ
             )
             subprocess.run(
-                "sh",
+                sconfig.mycfg_shell,
                 input=r"""top -b -n1 | grep -F 'sh -c -- stty raw' | grep -v "grep -F" | awk '{system("kill "$1)}'""".encode(),
+                shell=True,
+                env=os.environ,
+            )
+            subprocess.run(
+                sconfig.mycfg_shell,
+                input=r"""top -b -n1 | grep -F '--dividers' | grep -v "grep -F" | awk '{system("kill "$1)}'""".encode(),
                 shell=True,
                 env=os.environ,
             )
@@ -6403,7 +6409,7 @@ class EventParser:
                 " ".join(["kill", "-9", str(self.p.pid)]), shell=True, env=os.environ
             )
             subprocess.run(
-                "sh",
+                sconfig.mycfg_shell,
                 input=r"""top -b -n1 | grep -F 'uiautomator events' | grep -v "grep" | awk '{system("kill "$1)}'""".encode(),
                 shell=True,
                 env=os.environ,
