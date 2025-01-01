@@ -6315,13 +6315,13 @@ class LcpParser:
             )
             subprocess.run(
                 sconfig.mycfg_shell,
-                input=r"""top -b -n1 | grep -F 'sh -c -- stty raw' | grep -v "grep -F" | awk '{system("kill "$1)}'""".encode(),
+                input=r"""top -b -n1 | grep -F 'stty raw' | grep -v "grep -F" | awk '{system("kill -9 "$1)}'""".encode(),
                 shell=True,
                 env=os.environ,
             )
             subprocess.run(
                 sconfig.mycfg_shell,
-                input=r"""top -b -n1 | grep -F '--dividers' | grep -v "grep -F" | awk '{system("kill "$1)}'""".encode(),
+                input=r"""top -b -n1 | grep -F 'dividers' | grep -v "grep -F" | awk '{system("kill -9 "$1)}'""".encode(),
                 shell=True,
                 env=os.environ,
             )
