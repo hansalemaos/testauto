@@ -6169,7 +6169,7 @@ def get_uiautomator_data_with_cpu_limit(
 
 def get_fragment_data(android_fragment_parser_exe, timeout=30):
     try:
-        return pd.read_csv(
+        dff = pd.read_csv(
             io.StringIO(
                 (
                     b"".join(
@@ -6192,6 +6192,13 @@ def get_fragment_data(android_fragment_parser_exe, timeout=30):
             names=columns_fragments,
             dtype=dtypes_fragments,
         )
+        dff.loc[:, "aa_is_child"] = False
+        dff.loc[
+            (~dff.aa_MY_PARENT_IDS.str.endswith(","))
+            & (dff.aa_MY_PARENT_IDS.str.len() > 0),
+            "aa_is_child",
+        ] = True
+
     except Exception:
         errwrite()
         return pd.DataFrame()
