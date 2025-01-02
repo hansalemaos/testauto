@@ -5392,7 +5392,7 @@ dtypes_uiautomator = {
     "naf": np.dtype("int64"),
 }
 
-columns_fragments = columns = [
+columns_fragments = [
     "MY_ID",
     "MY_GROUP_ID",
     "MY_ELEMENT_ID",
