@@ -6305,7 +6305,7 @@ class LcpParser:
 
     def _threadreader(self):
         func = self.p.stdout.readline
-        _ = [line for line in iter(func) if self.d.append(line)]
+        _ = [line for line in iter(func, b"") if self.d.append(line)]
 
     def stop(self):
         self.p.terminate()
@@ -6395,7 +6395,7 @@ class EventParser:
 
     def _threadreader(self):
         func = self.p.stdout.readline
-        _ = [line for line in iter(func) if self.d.append(line)]
+        _ = [line for line in iter(func, b"") if self.d.append(line)]
         # try:
         #     for line in iter(func, b""):
         #         self.d.append(line)
